@@ -419,16 +419,11 @@ let quickCategories: [QuickCategory] = [
     ]),
 ]
 
-// MARK: - Unified Log View
-//
-// One sheet: manual entry OR scan both inform the same macro block.
-// After a scan the main block compacts into a named chip (tap to re-expand).
-// Quick-add foods appear as individual inline rows with per-item gram control.
+// MARK: - Shared utilities
 
-// ── Macro formatting helper ────────────────────────────────────────────────
-// Shows 1 decimal place for non-integer values (e.g. 3.5g fat), whole numbers
-// for anything that rounds cleanly (e.g. 25g protein).
-
+/// Macro formatting helper. Shows 1 decimal place for non-integer values
+/// (e.g. 3.5g fat), whole numbers for anything that rounds cleanly
+/// (e.g. 25g protein).
 private func macroStr(_ v: Double) -> String {
     let r = (v * 10).rounded() / 10
     return r.truncatingRemainder(dividingBy: 1) == 0
@@ -436,18 +431,18 @@ private func macroStr(_ v: Double) -> String {
         : String(format: "%.1f", r)
 }
 
-// ── Food row model ─────────────────────────────────────────────────────────
-
-struct UFoodRow: Identifiable {
+/// One row in the meal-being-logged list. Stores per-100g macros + a current
+/// gram amount; the actual P/C/F/kcal are derived live so the UI stays in sync
+/// when the user adjusts the amount.
+struct LogFoodItem: Identifiable {
     let id       = UUID()
     let emoji:   String
     let name:    String
     let pPer100: Double
     let cPer100: Double
     let fPer100: Double
-    var grams:       Double = 100
-    var isExpanded:  Bool   = false
-    var isUserAdded: Bool   = false
+    var grams:      Double = 100
+    var isExpanded: Bool   = false
 
     var protein: Double { pPer100 * grams / 100 }
     var carbs:   Double { cPer100 * grams / 100 }
@@ -455,7 +450,7 @@ struct UFoodRow: Identifiable {
     var kcal:    Double { protein * 4 + carbs * 4 + fat * 9 }
 }
 
-// MARK: - Receipt log view
+// MARK: - Log meal view
 
 struct LogMealView: View {
     let gradTop:    Color
@@ -468,7 +463,7 @@ struct LogMealView: View {
     @Environment(\.themeInk)    private var ink
     @Environment(\.colorScheme) private var scheme
 
-    @State private var items:         [UFoodRow] = []
+    @State private var items:         [LogFoodItem] = []
     @State private var addMode:       LogAddMode   = .manual
     @State private var confirmed:     Bool       = false
     @State private var panelExpanded: Bool       = true
@@ -656,7 +651,7 @@ struct LogMealView: View {
     // MARK: Helpers
 
     private func addScannedItem(p: Double, c: Double, f: Double, basis: Double) {
-        let row = UFoodRow(
+        let row = LogFoodItem(
             emoji: "📷", name: "Scanned",
             pPer100: p * 100 / max(basis, 1),
             cPer100: c * 100 / max(basis, 1),
@@ -678,7 +673,7 @@ struct LogMealView: View {
                 items[idx].isExpanded = true
             }
         } else {
-            let row = UFoodRow(emoji: food.emoji, name: food.name,
+            let row = LogFoodItem(emoji: food.emoji, name: food.name,
                                pPer100: food.p, cPer100: food.c, fPer100: food.f,
                                grams: food.typicalGrams, isExpanded: true)
             withAnimation(.spring(duration: 0.3)) { items.append(row) }
@@ -701,11 +696,11 @@ struct LogMealView: View {
 
     private func addManualItem() {
         guard manualProtein + manualCarbs + manualFat > 0 else { return }
-        let row = UFoodRow(
+        let row = LogFoodItem(
             emoji: "✏️",
             name:  manualName.trimmingCharacters(in: .whitespaces).isEmpty ? "Manual" : manualName,
             pPer100: manualProtein, cPer100: manualCarbs, fPer100: manualFat,
-            grams: 100, isExpanded: true, isUserAdded: true
+            grams: 100, isExpanded: true
         )
         withAnimation(.spring(duration: 0.4)) { panelExpanded = false }
         withAnimation(.spring(duration: 0.3)) { items.append(row) }
@@ -831,7 +826,7 @@ private enum LogFoodDisplayMode: String, Hashable, CaseIterable {
 // MARK: - Receipt item row
 
 private struct LogItemRow: View {
-    @Binding var item: UFoodRow
+    @Binding var item: LogFoodItem
     let onDelete: () -> Void
 
     @Environment(\.themeInk)    private var ink
@@ -1201,13 +1196,13 @@ private struct LogManualEntry: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            UMacroStepper(label: "Protein", value: $protein, color: ink,
+            MacroStepper(label: "Protein", value: $protein, color: ink,
                           pills: [5, 10, 25])
             Divider().background(ink.opacity(0.08))
-            UMacroStepper(label: "Carbs", value: $carbs,
+            MacroStepper(label: "Carbs", value: $carbs,
                           color: MacroPalette.carbs(for: scheme), pills: [10, 25, 50])
             Divider().background(ink.opacity(0.08))
-            UMacroStepper(label: "Fat", value: $fat,
+            MacroStepper(label: "Fat", value: $fat,
                           color: MacroPalette.fat(for: scheme), pills: [5, 10, 20])
 
             Divider().background(ink.opacity(0.08))
@@ -1305,7 +1300,7 @@ private struct GramChipPicker: View {
 
 // MARK: - Macro stepper row (pill style — big value left, quick steps middle, minus right)
 
-private struct UMacroStepper: View {
+private struct MacroStepper: View {
     let label: String
     @Binding var value: Double
     let color: Color
