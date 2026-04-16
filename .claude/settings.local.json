@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv TodoItem.swift FoodEntry.swift)",
+      "Bash(mv TodoRow.swift Components.swift)",
+      "Bash(mv ContentView.swift LogFoodView.swift)",
+      "Bash(mv TestView.swift SettingsView.swift)",
+      "Bash(mv ListView.swift MainView.swift)",
+      "Bash(python3 -c ':*)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 16' -quiet build)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -quiet build)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build)",
+      "Bash(xcodebuild -scheme TimeMeWidget -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build)",
+      "Bash(grep -l \"NSCameraUsage\" /Users/michaelpieniazek/Repos/TimeMe/**/*.plist)",
+      "Bash(grep -v \"^$\")",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 16' -quiet)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -quiet)",
+      "Bash(xcodebuild -project /Users/michaelpieniazek/Repos/TimeMe/TimeMe.xcodeproj -scheme TimeMe -destination 'id=E30B1E30-11F3-4C74-A099-DD99B889D0C3' -quiet)",
+      "Bash(xcodebuild -project /Users/michaelpieniazek/Repos/TimeMe/TimeMe.xcodeproj -list)",
+      "Bash(xcodebuild -project /Users/michaelpieniazek/Repos/TimeMe/TimeMe.xcodeproj -target TimeMe -destination 'id=E30B1E30-11F3-4C74-A099-DD99B889D0C3' -quiet)",
+      "Bash(xcodebuild -project /Users/michaelpieniazek/Repos/TimeMe/TimeMe.xcodeproj -target TimeMe -sdk iphonesimulator -arch arm64 -quiet)",
+      "Bash(xcodebuild -project /Users/michaelpieniazek/Repos/TimeMe/TimeMe.xcodeproj -target TimeMe -sdk iphonesimulator -arch arm64)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'id=E30B1E30-11F3-4C74-A099-DD99B889D0C3' -quiet)",
+      "Bash(xcodebuild -workspace TimeMe.xcodeproj/project.xcworkspace -scheme TimeMe -destination 'id=E30B1E30-11F3-4C74-A099-DD99B889D0C3' build)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 17' -quiet)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 17')",
+      "Bash(python3 -)",
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 16' build)"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source": "/Users/michaelpieniazek/Repos/TimeMe/TimeMe/FoodScannerView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Aim at the nutrition label",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 450
+        }
+      }
+    ]
+  },
+  "version": 1
+}

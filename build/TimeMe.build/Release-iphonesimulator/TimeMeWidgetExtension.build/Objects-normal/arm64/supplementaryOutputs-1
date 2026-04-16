@@ -1,0 +1,12 @@
+{
+  "/Users/michaelpieniazek/Repos/TimeMe/TimeMeWidget/TimeMeWidget.swift" : {
+    "abi-baseline-json" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension.abi.json",
+    "const-values" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension-primary.swiftconstvalues",
+    "dependencies" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension-primary.d",
+    "diagnostics" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension-primary.dia",
+    "objc-header" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension-Swift.h",
+    "swiftdoc" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension.swiftdoc",
+    "swiftmodule" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension.swiftmodule",
+    "swiftsourceinfo" : "/Users/michaelpieniazek/Repos/TimeMe/build/TimeMe.build/Release-iphonesimulator/TimeMeWidgetExtension.build/Objects-normal/arm64/TimeMeWidgetExtension.swiftsourceinfo"
+  }
+}

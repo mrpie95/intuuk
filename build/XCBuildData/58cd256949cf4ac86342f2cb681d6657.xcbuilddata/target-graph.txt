@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'TimeMe' in project 'TimeMe'
+➜ Explicit dependency on target 'TimeMeWidgetExtension' in project 'TimeMe'
+Target 'TimeMeWidgetExtension' in project 'TimeMe' (no dependencies)
