@@ -214,7 +214,6 @@ private struct DevSection: View {
     @AppStorage("heroHintDismissed") private var heroHintDismissed: Bool   = false
     @State private var confirmToday = false
     @State private var confirmAll   = false
-    @State private var showRawScanner = false
 
     private var todayCount: Int {
         let start = Calendar.current.startOfDay(for: .now)
@@ -225,18 +224,6 @@ private struct DevSection: View {
         // ── UI experiments ────────────────────────────────────
         Toggle(isOn: $newHeroStyle) {
             Label("New hero style", systemImage: "sparkles")
-        }
-
-        // ── Raw scanner test (no nesting, no sheet) ───────────
-        Button {
-            showRawScanner = true
-        } label: {
-            Label("Raw scanner test", systemImage: "camera.viewfinder")
-        }
-        .fullScreenCover(isPresented: $showRawScanner) {
-            FoodScannerView { _, _, _, _ in
-                showRawScanner = false
-            }
         }
 
         // ── Haptic lab ────────────────────────────────────────
