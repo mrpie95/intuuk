@@ -25,7 +25,23 @@
       "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 17' -quiet)",
       "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 17')",
       "Bash(python3 -)",
-      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 16' build)"
+      "Bash(xcodebuild -scheme TimeMe -destination 'platform=iOS Simulator,name=iPhone 16' build)",
+      "Bash(awk 'NR>=3420 && NR<=3446' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=1655 && NR<=1685' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=2455 && NR<=2475' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=3250 && NR<=3260' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=3350 && NR<=3360' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=1273 && NR<=1283' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=856 && NR<=865' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=563 && NR<=570' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=1213 && NR<=1240' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=2453 && NR<=2462 {printf \"%4d: %s\\\\n\", NR, $0}' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=2799 && NR<=2806 {printf \"%4d: %s\\\\n\", NR, $0}' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(awk 'NR>=3013 && NR<=3020 {printf \"%4d: %s\\\\n\", NR, $0}' /Users/michaelpieniazek/Repos/TimeMe/TimeMe/LogFoodView.swift)",
+      "Bash(git add *)",
+      "Bash(perl -pi -e ' *)",
+      "Bash(git mv *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

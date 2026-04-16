@@ -110,7 +110,7 @@ struct MainView: View {
         .sheet(isPresented: $showSettings) { SettingsView() }
         .fullScreenCover(isPresented: $showLog) {
             let save: (FoodEntry) -> Void = { modelContext.insert($0) }
-            ReceiptLogView(
+            LogMealView(
                 gradTop: grad.0, gradBottom: grad.1, onSave: save,
                 startInScanMode: startLogInScan
             )

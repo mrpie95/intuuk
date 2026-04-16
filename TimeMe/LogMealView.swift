@@ -457,7 +457,7 @@ struct UFoodRow: Identifiable {
 
 // MARK: - Receipt log view
 
-struct ReceiptLogView: View {
+struct LogMealView: View {
     let gradTop:    Color
     let gradBottom: Color
     let onSave:     (FoodEntry) -> Void
@@ -469,10 +469,10 @@ struct ReceiptLogView: View {
     @Environment(\.colorScheme) private var scheme
 
     @State private var items:         [UFoodRow] = []
-    @State private var addMode:       RAddMode   = .manual
+    @State private var addMode:       LogAddMode   = .manual
     @State private var confirmed:     Bool       = false
     @State private var panelExpanded: Bool       = true
-    @State private var foodDisplayMode: RFoodDisplayMode = .servings
+    @State private var foodDisplayMode: LogFoodDisplayMode = .servings
     @StateObject private var inlineScanner = NutritionScanner()
 
     // Manual entry state
@@ -527,7 +527,7 @@ struct ReceiptLogView: View {
                         }
 
                         ForEach($items) { $item in
-                            RItemRow(item: $item) {
+                            LogItemRow(item: $item) {
                                 withAnimation(.spring(duration: 0.25)) {
                                     items.removeAll { $0.id == item.id }
                                 }
@@ -718,7 +718,7 @@ struct ReceiptLogView: View {
         VStack(spacing: 0) {
             // Tab pill row + collapse toggle
             HStack(spacing: 6) {
-                ForEach(RAddMode.allCases, id: \.self) { mode in
+                ForEach(LogAddMode.allCases, id: \.self) { mode in
                     Button {
                         haptic()
                         withAnimation(.spring(duration: 0.2)) {
@@ -767,7 +767,7 @@ struct ReceiptLogView: View {
     @ViewBuilder private var panelContent: some View {
         switch addMode {
         case .foods:
-            RFoodGrid(
+            LogFoodGrid(
                 catIdx:           $catIdx,
                 displayMode:      $foodDisplayMode,
                 gramsForFood:     totalGramsAdded(for:),
@@ -777,12 +777,12 @@ struct ReceiptLogView: View {
             .padding(.horizontal, 14)
             .padding(.vertical, 14)
         case .manual:
-            RManualEntry(protein: $manualProtein, carbs: $manualCarbs,
+            LogManualEntry(protein: $manualProtein, carbs: $manualCarbs,
                          fat: $manualFat, name: $manualName) { addManualItem() }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 4)
         case .scan:
-            RInlineScannerView(scanner: inlineScanner)
+            LogScannerView(scanner: inlineScanner)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 12)
         }
@@ -806,7 +806,7 @@ struct ReceiptLogView: View {
 
 // MARK: - Receipt add mode
 
-private enum RAddMode: String, Hashable, CaseIterable {
+private enum LogAddMode: String, Hashable, CaseIterable {
     case manual, scan, foods
     var label: String {
         switch self {
@@ -818,7 +818,7 @@ private enum RAddMode: String, Hashable, CaseIterable {
 }
 
 /// How the foods grid surfaces "amount of this food in the meal" on each chip.
-private enum RFoodDisplayMode: String, Hashable, CaseIterable {
+private enum LogFoodDisplayMode: String, Hashable, CaseIterable {
     case grams, servings
     var label: String {
         switch self {
@@ -830,7 +830,7 @@ private enum RFoodDisplayMode: String, Hashable, CaseIterable {
 
 // MARK: - Receipt item row
 
-private struct RItemRow: View {
+private struct LogItemRow: View {
     @Binding var item: UFoodRow
     let onDelete: () -> Void
 
@@ -926,13 +926,13 @@ private struct RItemRow: View {
                 Rectangle().fill(ink.opacity(0.08)).frame(height: 1)
                 VStack(spacing: 12) {
                     HStack(spacing: 0) {
-                        REditMacro(value: Int(item.grams), unit: "g",    color: ink)
+                        EditMacroChip(value: Int(item.grams), unit: "g",    color: ink)
                         Rectangle().fill(ink.opacity(0.12)).frame(width: 1, height: 30)
-                        REditMacro(value: Int(item.kcal),  unit: "kcal", color: ink)
+                        EditMacroChip(value: Int(item.kcal),  unit: "kcal", color: ink)
                         Rectangle().fill(ink.opacity(0.12)).frame(width: 1, height: 30)
-                        REditMacro(value: item.protein,    unit: "P",    color: ink)
-                        REditMacro(value: item.carbs,      unit: "C",    color: MacroPalette.carbs(for: scheme))
-                        REditMacro(value: item.fat,        unit: "F",    color: MacroPalette.fat(for: scheme))
+                        EditMacroChip(value: item.protein,    unit: "P",    color: ink)
+                        EditMacroChip(value: item.carbs,      unit: "C",    color: MacroPalette.carbs(for: scheme))
+                        EditMacroChip(value: item.fat,        unit: "F",    color: MacroPalette.fat(for: scheme))
                     }
                     .padding(.vertical, 10)
                     .background(RoundedRectangle(cornerRadius: 12).fill(ink.opacity(0.06)))
@@ -952,7 +952,7 @@ private struct RItemRow: View {
 
 // MARK: - Inline scanner (live camera preview embedded in the Scan tab)
 
-private struct RInlineScannerView: View {
+private struct LogScannerView: View {
     @ObservedObject var scanner: NutritionScanner
     @Environment(\.themeInk) private var ink
     @Environment(\.colorScheme) private var scheme
@@ -999,9 +999,9 @@ private struct RInlineScannerView: View {
 
             // Live macro readout — fills as the scanner detects values
             HStack(spacing: 0) {
-                RScanMacro(label: "P", value: scanner.protein, color: ink)
-                RScanMacro(label: "C", value: scanner.carbs,   color: MacroPalette.carbs(for: scheme))
-                RScanMacro(label: "F", value: scanner.fat,     color: MacroPalette.fat(for: scheme))
+                ScanMacroChip(label: "P", value: scanner.protein, color: ink)
+                ScanMacroChip(label: "C", value: scanner.carbs,   color: MacroPalette.carbs(for: scheme))
+                ScanMacroChip(label: "F", value: scanner.fat,     color: MacroPalette.fat(for: scheme))
             }
             .padding(.vertical, 10)
             .background(RoundedRectangle(cornerRadius: 14).fill(ink.opacity(0.06)))
@@ -1010,7 +1010,7 @@ private struct RInlineScannerView: View {
     }
 }
 
-private struct RScanMacro: View {
+private struct ScanMacroChip: View {
     let label: String
     let value: Double?
     let color: Color
@@ -1032,7 +1032,7 @@ private struct RScanMacro: View {
 }
 
 /// Macro readout used inside an expanded item row. Generic over Double/Int values.
-private struct REditMacro: View {
+private struct EditMacroChip: View {
     private let display: String
     private let unit: String
     private let color: Color
@@ -1067,9 +1067,9 @@ private struct REditMacro: View {
 
 // MARK: - Receipt food grid (swipeable categories)
 
-private struct RFoodGrid: View {
+private struct LogFoodGrid: View {
     @Binding var catIdx: Int
-    @Binding var displayMode: RFoodDisplayMode
+    @Binding var displayMode: LogFoodDisplayMode
     /// Returns total grams of this food currently in the meal.
     let gramsForFood:    (QuickFood) -> Double
     /// Returns serving count of this food currently in the meal.
@@ -1164,7 +1164,7 @@ private struct RFoodGrid: View {
     /// Compact g/serving toggle that lives next to the category pills.
     private var displayModeToggle: some View {
         HStack(spacing: 0) {
-            ForEach(RFoodDisplayMode.allCases, id: \.self) { mode in
+            ForEach(LogFoodDisplayMode.allCases, id: \.self) { mode in
                 Button {
                     haptic()
                     withAnimation(.spring(duration: 0.25)) { displayMode = mode }
@@ -1187,7 +1187,7 @@ private struct RFoodGrid: View {
 
 // MARK: - Receipt manual entry
 
-private struct RManualEntry: View {
+private struct LogManualEntry: View {
     @Binding var protein: Double
     @Binding var carbs:   Double
     @Binding var fat:     Double
