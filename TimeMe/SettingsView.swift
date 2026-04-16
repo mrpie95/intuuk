@@ -212,7 +212,6 @@ private struct DevSection: View {
     @Query private var allEntries: [FoodEntry]
     @AppStorage("newHeroStyle")      private var newHeroStyle:      Bool   = false
     @AppStorage("heroHintDismissed") private var heroHintDismissed: Bool   = false
-    @AppStorage("logViewMode")       private var logViewMode:       String = LogViewMode.classic.rawValue
     @State private var confirmToday = false
     @State private var confirmAll   = false
     @State private var showRawScanner = false
@@ -226,14 +225,6 @@ private struct DevSection: View {
         // ── UI experiments ────────────────────────────────────
         Toggle(isOn: $newHeroStyle) {
             Label("New hero style", systemImage: "sparkles")
-        }
-
-        Picker(selection: $logViewMode) {
-            ForEach(LogViewMode.allCases, id: \.rawValue) { mode in
-                Text(mode.displayName).tag(mode.rawValue)
-            }
-        } label: {
-            Label("Log view", systemImage: "square.and.pencil")
         }
 
         // ── Raw scanner test (no nesting, no sheet) ───────────

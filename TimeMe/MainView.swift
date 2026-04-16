@@ -11,8 +11,6 @@ struct MainView: View {
     @AppStorage("newHeroStyle")      private var newHeroStyle:       Bool   = false
     @AppStorage("themeAppearance")   private var appearanceRawValue: String = ThemeAppearance.auto.rawValue
     @AppStorage("heroHintDismissed") private var heroHintDismissed:  Bool   = false
-    @AppStorage("logViewMode")       private var logViewMode:        String = LogViewMode.classic.rawValue
-
     @Environment(\.colorScheme) private var systemScheme
 
     private var theme:      GradientTheme   { GradientTheme(rawValue: themeRawValue) ?? .fire }
@@ -110,26 +108,7 @@ struct MainView: View {
         .onChange(of: totalCal)     { _, _ in syncWidget() }
         .onChange(of: calorieGoal)  { _, _ in syncWidget() }
         .sheet(isPresented: $showSettings) { SettingsView() }
-        .sheet(isPresented: Binding(
-            get: { showLog && logViewMode != LogViewMode.receipt.rawValue },
-            set: { if !$0 { showLog = false } }
-        )) {
-            let save: (FoodEntry) -> Void = { modelContext.insert($0) }
-            Group {
-                if logViewMode == LogViewMode.unified.rawValue {
-                    UnifiedLogView(gradTop: grad.0, gradBottom: grad.1, onSave: save)
-                } else {
-                    LogFoodView(gradTop: grad.0, gradBottom: grad.1, onSave: save)
-                }
-            }
-            .presentationDetents([.large])
-            .presentationDragIndicator(.visible)
-            .presentationCornerRadius(40)
-        }
-        .fullScreenCover(isPresented: Binding(
-            get: { showLog && logViewMode == LogViewMode.receipt.rawValue },
-            set: { if !$0 { showLog = false } }
-        )) {
+        .fullScreenCover(isPresented: $showLog) {
             let save: (FoodEntry) -> Void = { modelContext.insert($0) }
             ReceiptLogView(
                 gradTop: grad.0, gradBottom: grad.1, onSave: save,
