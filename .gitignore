@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+
+# Xcode — user-specific state, build products, derived data
+**/xcuserdata/
+*.xcuserstate
+build/
+DerivedData/
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+Package.resolved
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+
+# Local Claude settings (per-machine, shouldn't be in repo)
+.claude/settings.local.json
+
+# CocoaPods (if ever introduced)
+Pods/
+
+# Carthage (if ever introduced)
+Carthage/Build/
+
+# fastlane (if ever introduced)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Editor noise
+*.swp
+*~
+.idea/
+.vscode/
