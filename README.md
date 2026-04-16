@@ -1,174 +1,89 @@
-```
- ┌──────────────────────────────────────────────────────────────────────┐
- │ ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL                              │
- │ INTUUK-TEC PERSONAL NUTRITION SYSTEMS DIVISION                       │
- │ ----------------------------------------------------                 │
- │ ESTABLISHING CONNECTION ......................... [ OK ]             │
- │ AUTHENTICATING USER .............................. [ OK ]            │
- │ LOADING PIP-CHEF v0.1.ALPHA ...................... [ OK ]            │
- │                                                                      │
- │   ██╗███╗   ██╗████████╗██╗   ██╗██╗   ██╗██╗  ██╗                  │
- │   ██║████╗  ██║╚══██╔══╝██║   ██║██║   ██║██║ ██╔╝                  │
- │   ██║██╔██╗ ██║   ██║   ██║   ██║██║   ██║█████╔╝                   │
- │   ██║██║╚██╗██║   ██║   ██║   ██║██║   ██║██╔═██╗                   │
- │   ██║██║ ╚████║   ██║   ╚██████╔╝╚██████╔╝██║  ██╗                  │
- │   ╚═╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝                  │
- │                                                                      │
- │              < CALORIE & MACRO TRACKING TERMINAL >                   │
- │                                                                      │
- │ "WAR. WAR NEVER CHANGES. BUT YOUR PROTEIN INTAKE                     │
- │  PROBABLY SHOULD."           — VAULT-TEC NUTRITIONAL ADVISORY        │
- │                                                                      │
- └──────────────────────────────────────────────────────────────────────┘
-```
+# intuuk
 
-```
-> WELCOME TO INTUUK_
->
-> THIS UNIT IS DESIGNED TO ASSIST IN THE CONSUMPTION
-> AND TRACKING OF FOODSTUFFS WITHIN THE WASTELAND
-> (OR YOUR KITCHEN. WHICHEVER IS CLOSER.)
->
-> SYSTEM STATUS .......... ALPHA (PRE-WAR)
-> PLATFORM ............... iOS 17+
-> CHASSIS ................ SwiftUI / SwiftData
-> CAMERA MODULE .......... AVFoundation + Vision OCR
-> HAPTIC ENGINE .......... CoreHaptics
-> _
-```
+A calorie and macro tracker that respects the long arc.
+
+One bad day shouldn't break a week. A week shouldn't break a month. The body is the average, not the moment.
 
 ---
 
-## STATS PANEL
+## What it is
 
-```
-S.P.E.C.I.A.L.
+A native iOS app for logging meals through one of three paths — manual entry, label scanning, or a curated foods grid — all surfaced in a single full-screen sheet. Built end-to-end in SwiftUI, leaning on iOS 17+ primitives (liquid glass, content transitions, sensory feedback). No third-party dependencies.
 
-[S] SCAN       ████████░░  Live nutrition-label OCR. Inline preview.
-[P] PORTIONS   ████████░░  Servings ↔ grams toggle. Smart merge.
-[E] ENERGY     ███████░░░  Daily kcal balance. Weekly view planned.
-[C] COMMIT     █████████░  One-tap log. Long-press → straight to scan.
-[I] INTERFACE  ██████████  iOS 26 liquid glass, gradient hero, full-bleed.
-[A] AUDIO      ░░░░░░░░░░  Haptics only. (Silent meals, like a librarian.)
-[L] LONGEVITY  ████░░░░░░  Stage 1 of N. Roadmap below.
-```
+Stage 1 is logging. The current focus is making the entry surface itself effortless enough that tracking sticks past week two — most macro apps fail on the input ceremony alone.
 
 ---
 
-## OPERATIONAL FEATURES
+## Stack
 
 ```
-[*] LOG MEAL VIEW (FULL-SCREEN)
-    └── Three input paths in one panel:
-        ├── MANUAL  ── macro stepper with long-press-to-zero on −
-        ├── SCAN    ── live camera preview, triple-pulse haptic on lock
-        └── FOODS   ── swipeable categories, merge-on-retap, badge counts
-
-[*] HOME DASHBOARD
-    ├── Hero number (kcal balance, animated content transition)
-    ├── Long-press the + to skip straight into scan mode
-    └── History strip below the fold
-
-[*] HAPTIC LAB                       (dev tool, see Settings)
-    ├── Sine wave with live-tracked playhead graph
-    ├── Linear sweep, sustained rumble, custom transient tap
-    └── Self-contained module — drops into any iOS project
+SwiftUI            ·  view layer
+SwiftData          ·  persistence
+AVFoundation       ·  camera capture
+Vision             ·  on-device OCR for nutrition labels
+CoreHaptics        ·  custom-curve haptic feedback
 ```
+
+Apple-native everything. Builds with Xcode 16+, targets iOS 17+.
 
 ---
 
-## INSTALLATION INSTRUCTIONS (TERMINAL)
-
-```
-> git clone https://github.com/mrpie95/intuuk.git
-> cd intuuk
-> open TimeMe.xcodeproj
-> ⌘R                                  # ENGAGE
-```
-
-Requires Xcode 16+ targeting iOS 17+. No package manager dependencies —
-the entire stack is Apple-native (SwiftUI, SwiftData, AVFoundation,
-Vision, CoreHaptics).
-
----
-
-## CHASSIS DIAGRAM
+## Structure
 
 ```
 TimeMe/
-├── TimeMeApp.swift          ← entry point
-├── MainView.swift           ← dashboard + hero + history
-├── LogMealView.swift        ← THE log experience (full screen)
-│   ├── LogFoodItem          ← item model
-│   ├── LogScannerView       ← inline camera + live macro readout
-│   ├── LogFoodGrid          ← swipeable category chips
-│   ├── LogManualEntry       ← P/C/F steppers
-│   └── MacroStepper         ← reusable macro increment row
-├── FoodScannerView.swift    ← NutritionScanner (OCR engine)
-│   ├── NutritionScanner     ← Vision-based label reader
-│   ├── CameraPreviewView    ← UIKit AVCapture bridge
-│   └── ScanBracketsShape    ← viewfinder corner brackets
-├── FoodEntry.swift          ← SwiftData persistence model
-├── HapticLab.swift          ← reusable CoreHaptics playground
-├── Components.swift         ← shared SwiftUI primitives
-└── SettingsView.swift       ← preferences + dev tools
+├── TimeMeApp.swift          App entry point
+├── MainView.swift           Dashboard, hero balance, history
+├── LogMealView.swift        The log experience (full screen)
+├── FoodScannerView.swift    NutritionScanner (Vision OCR engine)
+├── FoodEntry.swift          SwiftData model
+├── HapticLab.swift          Reusable CoreHaptics playground
+├── Components.swift         Shared SwiftUI primitives
+└── SettingsView.swift       Preferences and dev tools
 ```
 
 ---
 
-## ROADMAP (FROM THE OVERSEER'S DESK)
+## Principles
 
-```
-[X] STAGE 1 ── Get the input right
-    └── Receipt-mode log surface, scan, foods grid, manual entry,
-        merge logic, badges, serving-size toggle
+**No nudges.** If commitment isn't there, a notification won't save it. That smell is desperation.
 
-[ ] STAGE 2 ── The long-arc story
-    ├── Apple Health-style calendar history
-    ├── Weekly + monthly goals (one bad day ≠ failure)
-    ├── Edit past meals
-    └── Favorites / recently logged shortcuts
+**No streaks.** A daily streak punishes real life. Aggregate over the long arc — weeks and months. See: Apple Activity rings.
 
-[ ] STAGE 3 ── Database expansion
-    └── The "hot dog on the street" problem. TBD.
-```
+**No waiting.** Tap to log. Long-press to scan. The camera is live by the time your hand is up.
+
+**Native shape.** Lean into the platform. Liquid glass, system fonts, segmented controls, contextual haptics. Fight the platform later, only if you must.
 
 ---
 
-## DESIGN PRINCIPLES
+## Roadmap
 
-```
-> NO NUDGES.    If you won't commit on your own, a notification
-                won't save you. That smell is desperation.
+**Stage 1 — Logging that doesn't friction you out**  *(current)*
+Three input paths in one sheet. Inline scanner with live macro readout. Smart merge for repeated foods. Servings ↔ grams toggle. Long-press shortcut from the home button straight into scan mode.
 
-> NO STREAKS.   One bad day shouldn't break a month of work.
-                Aggregate over the long arc. See: Apple Activity rings.
+**Stage 2 — The story over time**  *(next)*
+Calendar-style history (Apple Health pattern). Weekly and monthly goals — a way to "save for dessert" without guilt. Tap a past meal to re-log or edit it.
 
-> NO WAITING.   Tap to log. Long-press to scan. Camera is live by
-                the time your hand is up.
-
-> NATIVE SHAPE. Liquid glass, segmented controls, system fonts,
-                contextual haptics. Lean into the platform —
-                fight it later if you must.
-```
+**Stage 3 — Beyond the label**
+The hot-dog-on-the-street problem. Restaurant meals, home cooking, leftovers. Direction TBD.
 
 ---
 
-## CREDITS
+## Getting started
 
 ```
-> SYSTEM ARCHITECT ........... mrpie95
-> CODE OPERATIVE ............. Claude (Anthropic)
-> NUTRITION SCANNING OCR ..... Apple Vision Framework
-> HAPTIC AUTHORING ........... Apple CoreHaptics
-> INSPIRATION ................ Bethesda Softworks (RIP Ron Perlman's voiceover budget)
+git clone https://github.com/mrpie95/intuuk.git
+cd intuuk
+open TimeMe.xcodeproj
 ```
+
+⌘R to build and run on a simulator or device.
 
 ---
 
-```
-> TRANSMISSION ENDS_
->
->   THANK YOU FOR USING ROBCO TERMLINK
->   PRESS ANY KEY TO CONTINUE_
-```
+## Credits
+
+Architect — [@mrpie95](https://github.com/mrpie95)
+Code partner — Claude (Anthropic)
+Vision OCR — Apple Vision framework
+Haptic authoring — Apple CoreHaptics
