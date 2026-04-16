@@ -1,5 +1,0 @@
----
-triple:          'arm64-apple-darwin'
-binary-path:     '/Users/michaelpieniazek/Repos/TimeMe/build/Release-iphoneos/TimeMe.app/TimeMe'
-relocations:     []
-...

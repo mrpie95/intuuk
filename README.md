@@ -31,8 +31,8 @@ Apple-native everything. Builds with Xcode 16+, targets iOS 17+.
 ## Structure
 
 ```
-TimeMe/
-├── TimeMeApp.swift          App entry point
+intuuk/
+├── IntuukApp.swift          App entry point
 ├── MainView.swift           Dashboard, hero balance, history
 ├── LogMealView.swift        The log experience (full screen)
 ├── FoodScannerView.swift    NutritionScanner (Vision OCR engine)
@@ -74,7 +74,7 @@ The hot-dog-on-the-street problem. Restaurant meals, home cooking, leftovers. Di
 ```
 git clone https://github.com/mrpie95/intuuk.git
 cd intuuk
-open TimeMe.xcodeproj
+open intuuk.xcodeproj
 ```
 
 ⌘R to build and run on a simulator or device.
