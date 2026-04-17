@@ -14,3 +14,4 @@ These are reference artifacts — not part of the iOS build. Open any `.html` fi
 ## Why HTML and not Figma / Sketch?
 
 Browser-renderable, version-controllable, diffable. AI can produce and modify them in-loop. The translation from HTML mockup to SwiftUI is more direct than from a static image — layout intent survives the handoff.
+
