@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>intuuk · designs</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f3ef;
+      --ink:       #1a1a1a;
+      --ink-soft:  rgba(0,0,0,0.55);
+      --ink-muted: rgba(0,0,0,0.35);
+      --rule:      rgba(0,0,0,0.08);
+      --card:      #ffffff;
+      --card-hov:  #fafaf7;
+      --accent:    #E87030;  /* on-track amber from the brand gradient */
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+                   'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 64px 24px 96px;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ─────── Header ─────── */
+    header { margin-bottom: 56px; }
+
+    .wordmark {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+    }
+    .wordmark .dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin: 0 10px 6px;
+      vertical-align: middle;
+    }
+    .wordmark .meta {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--ink-soft);
+      letter-spacing: -0.5px;
+    }
+
+    .lede {
+      margin-top: 14px;
+      font-size: 15px;
+      color: var(--ink-soft);
+      max-width: 560px;
+      line-height: 1.55;
+    }
+
+    /* ─────── List ─────── */
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--rule);
+      border-radius: 18px;
+      padding: 22px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+    }
+    .card:hover {
+      background: var(--card-hov);
+      border-color: rgba(0,0,0,0.14);
+      transform: translateY(-1px);
+    }
+
+    .card .row1 {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .card .title {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .card .arrow {
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-variant-numeric: tabular-nums;
+      transition: transform 0.15s ease, color 0.15s ease;
+    }
+    .card:hover .arrow {
+      color: var(--accent);
+      transform: translateX(2px);
+    }
+
+    .card .desc {
+      margin-top: 6px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .card .tags {
+      margin-top: 14px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding: 4px 8px;
+      border: 1px solid var(--rule);
+      border-radius: 99px;
+    }
+
+    /* ─────── Footer ─────── */
+    footer {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+    footer a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    footer a:hover {
+      color: var(--ink);
+      border-color: var(--ink-muted);
+    }
+
+    /* ─────── Section heads ─────── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin: 36px 0 12px;
+      padding-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="wordmark">
+        intuuk<span class="dot"></span><span class="meta">designs</span>
+      </div>
+      <p class="lede">
+        Static HTML mockups from exploration sessions. A living gallery of
+        what could this look like — used to align on visual direction before
+        anything ships in SwiftUI.
+      </p>
+    </header>
+
+    <div class="section-label">Mockups</div>
+    <div class="gallery">
+
+      <a href="nutrition_mockup.html" class="card">
+        <div class="row1">
+          <div class="title">Nutrition mockup</div>
+          <div class="arrow">Open →</div>
+        </div>
+        <div class="desc">
+          Interactive prototype of the dashboard + log-meal flow. Tap macros,
+          add quantities, hit "Eaten", scrub the simulator slider to see the
+          background gradient shift through the day.
+        </div>
+        <div class="tags">
+          <span class="tag">Dashboard</span>
+          <span class="tag">Log flow</span>
+          <span class="tag">Interactive</span>
+        </div>
+      </a>
+
+      <a href="intuuk_gradient_playground.html" class="card">
+        <div class="row1">
+          <div class="title">Gradient playground</div>
+          <div class="arrow">Open →</div>
+        </div>
+        <div class="desc">
+          Side-by-side phone previews of the brand gradient at every kcal
+          ratio, from cool deficit blue through warm on-track amber to the
+          deep coral over-goal end.
+        </div>
+        <div class="tags">
+          <span class="tag">Brand</span>
+          <span class="tag">Color system</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="section-label">Reference</div>
+    <div class="gallery">
+
+      <a href="design_brief.md" class="card">
+        <div class="row1">
+          <div class="title">Design brief</div>
+          <div class="arrow">Open →</div>
+        </div>
+        <div class="desc">
+          The original written brief for the app — screens, layout decisions,
+          gradient color stops, typography rules, data model.
+        </div>
+        <div class="tags">
+          <span class="tag">Markdown</span>
+        </div>
+      </a>
+
+    </div>
+
+    <footer>
+      <span>intuuk · alpha</span>
+      <span>
+        <a href="https://github.com/mrpie95/intuuk" target="_blank">github</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
